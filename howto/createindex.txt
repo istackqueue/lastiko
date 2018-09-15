@@ -1,0 +1,108 @@
+[Maloy-> book]$ ./addbook.scr
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "books"
+}
+[Maloy-> book]$ cp addbook.scr checkmapping.scr
+[Maloy-> book]$ vi checkmapping.scr
+[Maloy-> book]$ ./checkmapping.scr
+{
+  "books" : {
+    "mappings" : { }
+  }
+}
+[Maloy-> book]$ vi books.json
+[Maloy-> book]$ ls
+addbook.scr  books.json  checkindices.scr  checkmapping.scr
+[Maloy-> book]$ mv addbook.scr addbookindex.scr
+[Maloy-> book]$ cp addbookindex.scr adddocument.scr
+[Maloy-> book]$ vi adddocument.scr
+[Maloy-> book]$ ./adddocument.scr
+{
+  "_index" : "books",
+  "_type" : "fiction",
+  "_id" : "1",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+[Maloy-> book]$ ./check
+checkindices.scr  checkmapping.scr
+[Maloy-> book]$ ./checkindices.scr
+health status index     uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   customers IRUZIL5qRXK_rFNqjV7UVg   5   1          6            0     18.9kb         18.9kb
+yellow open   client    TlieGqD8STyPrz46aU98gg   5   1        999            0    485.2kb        485.2kb
+yellow open   books     sUFwQO_ISzK9Hleu-3mfdg   5   1          1            0      7.1kb          7.1kb
+yellow open   footware  6DRvZ73zT4W2Bzpzl2aeFQ   5   1          4            0     17.3kb         17.3kb
+yellow open   orders    wXT4QxNNRSWMFZvlvCVMHA   5   1          0            0      1.2kb          1.2kb
+yellow open   employees qb_YOAVSTLWQiwL347lbYA   5   1     100000            0     34.3mb         34.3mb
+yellow open   products  bAvQVcgxTgWlNWJeXW0Okw   5   1          7            0     47.2kb         47.2kb
+[Maloy-> book]$ ls
+addbookindex.scr  adddocument.scr  books.json  checkindices.scr  checkmapping.scr
+[Maloy-> book]$ ./checkmapping.scr
+{
+  "books" : {
+    "mappings" : {
+      "fiction" : {
+        "properties" : {
+          "Available" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "author" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "cost" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "date" : {
+            "type" : "date"
+          },
+          "name" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "publishers" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+[Maloy-> book]$
